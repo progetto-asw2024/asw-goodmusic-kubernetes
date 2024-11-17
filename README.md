@@ -140,3 +140,5 @@ Si veda la descrizione del progetto sul sito web del corso di [Architettura dei 
 ## Utilizzo di Kafka con Docker e Kubernetes
 
 Ecco alcune [note sull'Utilizzo di Kafka con Docker e Kubernetes](kafka/).
+
+# Ciao 2
