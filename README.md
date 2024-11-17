@@ -141,4 +141,4 @@ Si veda la descrizione del progetto sul sito web del corso di [Architettura dei 
 
 Ecco alcune [note sull'Utilizzo di Kafka con Docker e Kubernetes](kafka/).
 
-# Ciao 2
+# Ciao 3
