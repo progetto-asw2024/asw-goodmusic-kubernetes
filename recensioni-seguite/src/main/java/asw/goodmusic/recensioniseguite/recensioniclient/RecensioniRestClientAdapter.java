@@ -55,6 +55,21 @@ public class RecensioniRestClientAdapter implements RecensioniClientPort {
 		return recensioni; 
 	}
 
+	public Collection<RecensioneBreve> getRecensioniByGeneri(Collection<String> generi) {
+		Collection<RecensioneBreve> recensioni = null; 
+        Flux<RecensioneBreveResponse> response = loadBalancedWebClient
+                .get()
+				.uri("http://recensioni/cercarecensioni/generi/{generi}", toString(generi))
+                .retrieve()
+                .bodyToFlux(RecensioneBreveResponse.class);
+        try {
+            recensioni = toRecensioni(response.collectList().block());
+        } catch (WebClientException e) {
+            e.printStackTrace();
+        }
+		return recensioni; 
+	}
+
 	private RecensioneBreve toRecensione(RecensioneBreveResponse response) {
 		return new RecensioneBreve(response.getId(), response.getRecensore(), response.getAlbum(), 
 				response.getArtista(), response.getGenere(), response.getSunto());
