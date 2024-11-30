@@ -1,0 +1,13 @@
+{
+    "Servers": {
+        "1": {
+            "Name": "Recensioni Service DB",
+            "Group": "Recensioni Service DB",
+            "Host": "postgres",
+            "Port": 5432,
+            "MaintenanceDB": "recensionidb",
+            "Username": "postgres",
+            "SSLMode": "prefer"
+        }
+    }
+}

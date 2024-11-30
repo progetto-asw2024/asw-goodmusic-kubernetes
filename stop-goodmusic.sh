@@ -11,3 +11,4 @@ sleep 4
 
 docker stop asw-consul 
 docker rm asw-consul 
+./recensioni/stop.sh
