@@ -1,0 +1,12 @@
+{
+    "Definitivi": {
+        "script":[
+            "./recensioni/start.sh"
+        ]
+    },
+    "Test": {
+        "script":[
+            "./recensioni/start.sh"
+        ]
+    }
+}
