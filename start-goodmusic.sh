@@ -6,6 +6,7 @@ echo Running GOODMUSIC
 
 docker run -d --hostname localhost --name asw-consul --publish 8500:8500 docker.io/hashicorp/consul
 
+./recensioni/start.sh
 sleep 4 
 
 java -Xms64m -Xmx128m -jar recensioni/build/libs/recensioni.jar &
