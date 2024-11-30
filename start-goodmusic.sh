@@ -7,6 +7,7 @@ echo Running GOODMUSIC
 docker run -d --hostname localhost --name asw-consul --publish 8500:8500 docker.io/hashicorp/consul
 
 ./recensioni/start.sh
+./connessioni/start.sh
 cd "$(dirname "$0")"
 sleep 4 
 
