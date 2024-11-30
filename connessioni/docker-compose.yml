@@ -1,4 +1,4 @@
-name: postgres_recensioni
+name: postgres_connessioni
 
 services:
   postgres:
@@ -6,16 +6,16 @@ services:
 #    volumes:
 #      - "$PWD/postgres:/docker-entrypoint-initdb.d"
     ports:
-      - "5433:5432"
+      - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: recensionidb
+      POSTGRES_DB: connessionidb
   pgadmin:
     image: dpage/pgadmin4
     restart: always
     ports:
-      - "8089:80"
+      - "8088:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: postgres@postgres.com
       PGADMIN_DEFAULT_PASSWORD: postgres
