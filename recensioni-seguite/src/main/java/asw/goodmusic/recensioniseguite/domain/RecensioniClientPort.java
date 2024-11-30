@@ -8,6 +8,6 @@ public interface RecensioniClientPort {
 
 	public Collection<RecensioneBreve> getRecensioniByRecensori(Collection<String> recensori);
 
-	public Collection<RecensioneBreve> getRecensioniByGeneri(Collection<String> recensori);
+	public Collection<RecensioneBreve> getRecensioniByGeneri(Collection<String> generi);
 
 }
