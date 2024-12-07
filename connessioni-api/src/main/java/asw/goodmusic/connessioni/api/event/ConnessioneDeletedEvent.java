@@ -1,9 +1,9 @@
 package asw.goodmusic.connessioni.api.event;
 
 import lombok.*;
-
+import asw.goodmusic.common.api.DomainEvent;
 @Data @NoArgsConstructor @AllArgsConstructor
-public class ConnessioneDeletedEvent {
+public class ConnessioneDeletedEvent implements DomainEvent {
 
 	private String utente; 
 	private String seguito; 
