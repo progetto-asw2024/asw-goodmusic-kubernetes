@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 @Component
-public class ConnessioniEventKafkaListner {
+public class ConnessioniEventKafkaListener {
     @Autowired
     private ConnessioniEventConsumer connessioniEventConsumer;
     private final Logger logger = Logger.getLogger(this.getClass().toString());
