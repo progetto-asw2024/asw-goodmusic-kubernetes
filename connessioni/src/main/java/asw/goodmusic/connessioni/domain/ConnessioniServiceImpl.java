@@ -24,7 +24,7 @@ public class ConnessioniServiceImpl implements ConnessioniService {
 		Connessione connessione = new Connessione(utente, seguito, ruolo); 
 		try {
 			connessione = connessioniRepository.save(connessione);
-			DomainEvent event = new ConnessioneCreatedEvent(connessione.getUtente(),connessione.getSeguito(),connessione.getRuolo());
+			DomainEvent event = new ConnessioneCreatedEvent(connessione.getId(),connessione.getUtente(),connessione.getSeguito(),connessione.getRuolo());
 			connesioniEventPublisher.publish(event);
 			return connessione;
 		} catch(Exception e) {
