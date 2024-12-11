@@ -5,9 +5,10 @@ import asw.goodmusic.common.api.DomainEvent;
 @Data @NoArgsConstructor @AllArgsConstructor
 public class RecensioneDeletedEvent implements DomainEvent {
 
-	private String utente; 
-	private String seguito; 
-	private String ruolo; 
-
+	private String recensore; 
+	private String album; 
+	private String artista; 
+	private String genere; 
+	private String sunto; 
 }
 
