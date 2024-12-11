@@ -11,11 +11,18 @@ public class RecensioniServiceImpl implements RecensioniService {
 	@Autowired
 	private RecensioniRepository recensioniRepository;
 
+	@Autowired
+	private RecensioniEventKafkaPublisher recensioniEventPublisher;
+
 	/* Crea una nuova recensione, a partire dai suoi dati. */ 
  	public Recensione createRecensione(String recensore, String album, String artista, String genere, String testo, String sunto) {
 		Recensione recensione = new Recensione(recensore, album, artista, genere, testo, sunto); 
+		/* in produzione */
 		recensione = recensioniRepository.save(recensione);
+		DomainEvent event = new RecensioneCreatedEvent(recensione.getId(),recensione.getRecensore(),recensione.getAlbum(),recensione.getArtista(),recensione.getGenere(), recensione.getSunto());
+		recensioniEventPublisher.publish(event);
 		return recensione;
+		
 	}
 
 	/* Trova una recensione, dato l'id. */ 
