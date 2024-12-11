@@ -19,6 +19,22 @@ spring:
     loadbalancer: 
       ribbon.enabled: false 
 
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5434/recensioni-seguitedb
+    username: postgres
+    password: postgres
+
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      jdbc:
+        lob:
+          non_contextual_creation: true
+    open-in-view: false
+    show-sql: false
+
 server: 
   port: ${PORT:${SERVER_PORT:0}}
 #  port: 8080
