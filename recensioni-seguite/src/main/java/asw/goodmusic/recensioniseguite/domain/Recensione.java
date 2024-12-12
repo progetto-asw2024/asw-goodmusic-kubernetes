@@ -1,5 +1,7 @@
 package asw.goodmusic.recensioniseguite.domain;
 
+import org.checkerframework.checker.units.qual.t;
+
 import jakarta.persistence.*; 
 
 import lombok.*; 
@@ -26,8 +28,9 @@ public class Recensione implements Comparable<Recensione> {
 	/* sunto del testo della recensione */ 
 	private String sunto; 
 
-	public Recensione(String recensore, String album, String artista, String genere, String sunto) {
-		this(); 
+	public Recensione(Long id, String recensore, String album, String artista, String genere, String sunto) {
+		this();
+		this.id = id;
 		this.recensore = recensore; 
 		this.album = album; 
 		this.artista = artista; 
