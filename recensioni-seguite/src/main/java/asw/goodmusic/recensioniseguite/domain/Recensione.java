@@ -1,7 +1,5 @@
 package asw.goodmusic.recensioniseguite.domain;
 
-import org.checkerframework.checker.units.qual.t;
-
 import jakarta.persistence.*; 
 
 import lombok.*; 
