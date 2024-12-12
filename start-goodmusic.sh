@@ -8,6 +8,7 @@ docker run -d --hostname localhost --name asw-consul --publish 8500:8500 docker.
 
 ./recensioni/start.sh
 ./connessioni/start.sh
+./recensioni-seguite/start.sh
 cd "$(dirname "$0")"
 sleep 4 
 

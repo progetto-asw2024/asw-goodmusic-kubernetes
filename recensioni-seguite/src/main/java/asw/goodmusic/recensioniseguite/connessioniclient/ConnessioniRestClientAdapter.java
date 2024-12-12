@@ -1,4 +1,4 @@
-package asw.goodmusic.recensioniseguite.connessioniclient;
+package asw.goodmusic.recensioniseguite.connessioni;
 
 import asw.goodmusic.recensioniseguite.domain.*; 
 

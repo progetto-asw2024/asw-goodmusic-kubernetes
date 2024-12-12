@@ -7,10 +7,9 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import asw.goodmusic.common.api.DomainEvent;
-import asw.goodmusic.recensioni.domain.RecensioniEventPublisherPort;
-
+import asw.goodmusic.connessioni.domain.ConnessioniEventPublisherPort;
 @Service
-public class RecensioniEventKafkaPublisher implements RecensioniEventPublisherPort  {
+public class ConnessioniEventKafkaPublisher implements ConnessioniEventPublisherPort  {
 
     @Value("${asw.kafka.channel.out}")
 	private String channel;
