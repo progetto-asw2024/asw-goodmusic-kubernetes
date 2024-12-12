@@ -2,7 +2,9 @@ package asw.goodmusic.recensioni.domain;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import asw.goodmusic.recensioni.eventpublisher.RecensioniEventKafkaPublisher;
+import asw.goodmusic.common.api.DomainEvent;
+import asw.goodmusic.recensioni.api.event.RecensioneCreatedEvent;
 import java.util.*; 
 
 @Service
