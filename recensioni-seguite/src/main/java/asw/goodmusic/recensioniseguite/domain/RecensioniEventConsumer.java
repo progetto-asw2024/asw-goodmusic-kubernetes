@@ -28,7 +28,7 @@ public class RecensioniEventConsumer {
 	}
 
 	private void onRecensioneCreated(RecensioneCreatedEvent event) {
-		Recensione recensione = new Recensione(event.getId(),event.getRecensore(),event.getAlbum(),event.getArtista(),event.getGenere(), event.getSunto());
+		RecensioneBreve recensione = new RecensioneBreve(event.getId(),event.getRecensore(),event.getAlbum(),event.getArtista(),event.getGenere(), event.getSunto());
 		recensioniRepository.save(recensione);
 		logger.info("CREATED RECENSIONE: " + recensione);
 	}
