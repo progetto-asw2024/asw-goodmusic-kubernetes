@@ -36,13 +36,6 @@ spring:
     open-in-view: false
     show-sql: false
 
-  kafka:
-    bootstrap-servers: localhost:9092
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      batch-size: 0
-
 server:
   port: ${PORT:${SERVER_PORT:0}}
   # Se necessario, puoi fissare una porta (es. 8080)
@@ -60,12 +53,3 @@ logging:
         SQL: INFO
     asw:
       recensioni: DEBUG
-
-# MESSAGING
-asw:
-  kafka:
-    producer:
-      name: Producer2
-    channel:
-      out: recensioni
-    # groupid: simple-producer

@@ -34,8 +34,7 @@ public class ConnessioniEventConsumer {
 	}
 
 	private void onConnessioneDeleted(ConnessioneDeletedEvent event) {
-		Connessione connessione = new Connessione(event.getId(),event.getUtente(),event.getSeguito(),event.getRuolo());
-		connessioniRepository.delete(connessione);
+
 		logger.info("DELETED CONNESSIONE: ");
 	}
 }

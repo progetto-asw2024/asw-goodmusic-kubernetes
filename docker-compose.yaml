@@ -1,0 +1,42 @@
+services:
+  connessioni:
+    build:
+      context: ./connessioni
+      tags:
+        - "${REGISTRY}/goodmusic-connessioni-kube:${TAG}"
+        - "${REGISTRY}/goodmusic-connessioni-kube:latest"
+
+  connessioniapi:
+    build:
+      context: ./connessioni-api
+      tags:
+        - "${REGISTRY}/goodmusic-connessioni-api-kube:${TAG}"
+        - "${REGISTRY}/goodmusic-connessioni-api-kube:latest"
+
+  recensioni:
+    build:
+      context: ./recensioni
+      tags:
+        - "${REGISTRY}/goodmusic-recensioni-kube:${TAG}"
+        - "${REGISTRY}/goodmusic-recensioni-kube:latest"
+
+  recensioniapi:
+    build:
+      context: ./recensioni-api
+      tags:
+        - "${REGISTRY}/goodmusic-recensioni-api-kube:${TAG}"
+        - "${REGISTRY}/goodmusic-recensioni-api-kube:latest"
+
+  recensioniseguite:
+    build:
+      context: ./recensioni-seguite
+      tags:
+        - "${REGISTRY}/goodmusic-recensioni-seguite-kube:${TAG}"
+        - "${REGISTRY}/goodmusic-recensioni-seguite-kube:latest"
+
+  apigateway:
+    build:
+      context: ./api-gateway
+      tags:
+        - "${REGISTRY}/goodmusic-apigateway-kube:${TAG}"
+        - "${REGISTRY}/goodmusic-apigateway-kube:latest"
