@@ -5,23 +5,23 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.*; 
 
-public interface RecensioniRepository extends CrudRepository<RecensioneBreve, Long> {
+public interface RecensioniRepository extends CrudRepository<Recensione, Long> {
 
-	public Collection<RecensioneBreve> findAll();
+	public Collection<Recensione> findAll();
 
-	public Collection<RecensioneBreve> findByRecensore(String recensore);
+	public Collection<Recensione> findByRecensore(String recensore);
 
-	public Collection<RecensioneBreve> findByRecensoreIn(Collection<String> recensori);
+	public Collection<Recensione> findByRecensoreIn(Collection<String> recensori);
 
-	public Collection<RecensioneBreve> findByAlbum(String album);
+	public Collection<Recensione> findByAlbum(String album);
 
-	public Collection<RecensioneBreve> findByArtista(String artista);
+	public Collection<Recensione> findByArtista(String artista);
 
-	public Collection<RecensioneBreve> findByArtistaIn(Collection<String> artisti);
+	public Collection<Recensione> findByArtistaIn(Collection<String> artisti);
 
-	public Collection<RecensioneBreve> findByGenere(String genere);
+	public Collection<Recensione> findByGenere(String genere);
 
-	public Collection<RecensioneBreve> findByGenereIn(Collection<String> generi);
+	public Collection<Recensione> findByGenereIn(Collection<String> generi);
 
 }
 

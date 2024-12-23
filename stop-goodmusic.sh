@@ -14,4 +14,3 @@ docker rm asw-consul
 ./recensioni/stop.sh
 ./connessioni/stop.sh
 ./recensioni-seguite/stop.sh
-./kafka/stop.sh
