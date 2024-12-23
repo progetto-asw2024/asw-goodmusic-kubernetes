@@ -6,6 +6,7 @@ echo Running GOODMUSIC
 
 docker run -d --hostname localhost --name asw-consul --publish 8500:8500 docker.io/hashicorp/consul
 
+./kafka/start.sh
 ./recensioni/start.sh
 ./connessioni/start.sh
 ./recensioni-seguite/start.sh
