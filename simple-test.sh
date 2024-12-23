@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the subfolder containing the scripts
-SUBFOLDER="subfolder"
+SUBFOLDER="zfiles-sh"
 
 # Step 1: Initialize Recensioni
 echo "Esecuzione di do-init-recensioni.sh..."

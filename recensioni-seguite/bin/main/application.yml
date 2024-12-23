@@ -19,12 +19,47 @@ spring:
     loadbalancer: 
       ribbon.enabled: false 
 
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5434/recensioni-seguitedb
+    username: postgres
+    password: postgres
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      auto-offset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages:  asw.goodmusic.*
+      
+
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      jdbc:
+        lob:
+          non_contextual_creation: true
+    open-in-view: false
+    show-sql: false
+
 server: 
   port: ${PORT:${SERVER_PORT:0}}
 #  port: 8080
   # per swagger, se dietro a un api gateway 
   forward-headers-strategy: framework
-
+asw:
+  kafka:
+    consumer:
+      name: Consumer
+    channel:
+      in1: connessioni
+      in2: recensioni
+    groupid: recensioni-seguite
 # fa il logging dei comandi sql eseguiti 
 #spring.jpa.show-sql: true
 # disable OSIV
