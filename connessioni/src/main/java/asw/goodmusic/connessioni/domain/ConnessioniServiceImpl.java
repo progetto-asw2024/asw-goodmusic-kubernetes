@@ -74,7 +74,7 @@ public class ConnessioniServiceImpl implements ConnessioniService {
 		Connessione connessione = getConnessione(utente, seguito, ruolo); 
 		if (connessione!=null) {
 			connessioniRepository.delete(connessione);
-			DomainEvent event = new ConnessioneDeletedEvent(connessione.getId(),connessione.getUtente(),connessione.getSeguito(),connessione.getRuolo());
+			DomainEvent event = new ConnessioneDeletedEvent(connessione.getUtente(),connessione.getSeguito(),connessione.getRuolo());
 			connesioniEventPublisher.publish(event);
 		}
 		return connessione; 
