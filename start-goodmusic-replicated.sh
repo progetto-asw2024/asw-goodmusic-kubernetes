@@ -18,8 +18,12 @@ docker run -d --network=goodmusic-net --name recensioni-seguite-db -e POSTGRES_U
 
 docker run -d --network=goodmusic-net -p 8500:8500 --name=consul docker.io/hashicorp/consul 
 
-docker run -d --network=goodmusic-net --name=connessioni connessioni 
-docker run -d --network=goodmusic-net --name=recensioni recensioni 
-docker run -d --network=goodmusic-net --name=recensioni-seguite recensioni-seguite 
+docker run -d --network=goodmusic-net --name=connessioni-1 connessioni 
+docker run -d --network=goodmusic-net --name=recensioni-1 recensioni 
+docker run -d --network=goodmusic-net --name=recensioni-seguite-1 recensioni-seguite 
+
+docker run -d --network=goodmusic-net --name=connessioni-2 connessioni
+docker run -d --network=goodmusic-net --name=recensioni-2 recensioni 
+docker run -d --network=goodmusic-net --name=recensioni-seguite-2 recensioni-seguite 
 
 docker run -d --network=goodmusic-net -p 8080:8080 --name=apigateway apigateway 
