@@ -2,15 +2,24 @@
 
 echo Halting GOODMUSIC   
 
-pkill -f 'recensioni-seguite.jar'
-pkill -f 'recensioni.jar'
-pkill -f 'connessioni.jar'
-pkill -f 'api-gateway.jar'
+docker stop consul 
+docker stop kafka
+docker stop $(docker ps -a | grep recensioni | awk '{print $1}')
+docker stop $(docker ps -a | grep recensioni-seguite | awk '{print $1}')
+docker stop $(docker ps -a | grep connessioni | awk '{print $1}')
+docker stop connessioni-db
+docker stop recensioni-db
+docker stop recensioni-seguite-db
+docker stop apigateway
 
-sleep 4 
+docker rm consul 
+docker rm kafka
+docker rm $(docker ps -a | grep recensioni | awk '{print $1}')
+docker rm $(docker ps -a | grep recensioni-seguite | awk '{print $1}')
+docker rm $(docker ps -a | grep connessioni | awk '{print $1}')
+docker rm connessioni-db
+docker rm recensioni-db
+docker rm recensioni-seguite-db
+docker rm apigateway
 
-docker stop asw-consul 
-docker rm asw-consul 
-./recensioni/stop.sh
-./connessioni/stop.sh
-./recensioni-seguite/stop.sh
+docker network rm goodmusic-net 
