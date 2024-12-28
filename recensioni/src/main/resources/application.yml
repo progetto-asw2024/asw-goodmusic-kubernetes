@@ -4,21 +4,7 @@ spring:
   application:
     name: recensioni
 
-  cloud:
-    consul:
-      host: consul
-      port: 8500
-      discovery:
-        instanceId: ${spring.application.name}-${spring.cloud.client.hostname}-${random.value}
-        healthCheckPath: /actuator/health
-        healthCheckInterval: 10s
-        # Configurazione per effettuare esperimenti, NON USARE IN PRODUZIONE
-        # Dopo quanto tempo Consul deve smettere di restituire servizi che non rispondono all'health check? 
-        healthCheckCriticalTimeout: 45s
-        # Consul deve restituire solo servizi che passano l'health check (default=false)
-        queryPassing: true
-    loadbalancer:
-      ribbon.enabled: false
+
 
   datasource:
     driver-class-name: org.postgresql.Driver
