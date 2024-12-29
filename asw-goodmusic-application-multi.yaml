@@ -1,0 +1,275 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: asw
+---
+# CONNESSIONI
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: asw
+  name: connessioni
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: goodmusic
+      service: connessioni
+  template:
+    metadata:
+      labels:
+        app: goodmusic
+        service: connessioni
+    spec:
+      containers:
+        - name: connessioni-container
+          image: stefanomoerelli02/asw-goodmusic-connessioni
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: asw
+  name: connessioni
+spec:
+  selector:
+    app: goodmusic
+    service: connessioni
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+# Database CONNESSIONI
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: asw
+  name: connessioni-db
+spec:
+  serviceName: connessioni-db
+  replicas: 1
+  selector:
+    matchLabels:
+      app: goodmusic
+      service: connessioni-db
+  template:
+    metadata:
+      labels:
+        app: goodmusic
+        service: connessioni-db
+    spec:
+      containers:
+        - name: connessioni-db-container
+          image: postgres:latest
+          env:
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: postgres
+            - name: POSTGRES_DB
+              value: connessionidb
+          ports:
+            - containerPort: 5432
+  # Rimosso il volumeClaimTemplates
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: asw
+  name: connessioni-db
+spec:
+  selector:
+    app: goodmusic
+    service: connessioni-db
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+
+---
+# RECENSIONI
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: asw
+  name: recensioni
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: goodmusic
+      service: recensioni
+  template:
+    metadata:
+      labels:
+        app: goodmusic
+        service: recensioni
+    spec:
+      containers:
+        - name: recensioni-container
+          image: stefanomoerelli02/asw-goodmusic-recensioni
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: asw
+  name: recensioni
+spec:
+  selector:
+    app: goodmusic
+    service: recensioni
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+# Database RECENSIONI
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: asw
+  name: recensioni-db
+spec:
+  serviceName: recensioni-db
+  replicas: 1
+  selector:
+    matchLabels:
+      app: goodmusic
+      service: recensioni-db
+  template:
+    metadata:
+      labels:
+        app: goodmusic
+        service: recensioni-db
+    spec:
+      containers:
+        - name: recensioni-db-container
+          image: postgres:latest
+          env:
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: postgres
+            - name: POSTGRES_DB
+              value: recensionidb
+          ports:
+            - containerPort: 5432
+  # Rimosso il volumeClaimTemplates
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: asw
+  name: recensioni-db
+spec:
+  selector:
+    app: goodmusic
+    service: recensioni-db
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: asw
+  name: recensioni-db
+spec:
+  selector:
+    app: goodmusic
+    service: recensioni-db
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+---
+# API GATEWAY
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: asw
+  name: api-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: goodmusic
+      service: api-gateway
+  template:
+    metadata:
+      labels:
+        app: goodmusic
+        service: api-gateway
+    spec:
+      containers:
+        - name: api-gateway-container
+          image: stefanomoerelli02/asw-goodmusic-api-gateway
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: asw
+  name: api-gateway
+spec:
+  selector:
+    app: goodmusic
+    service: api-gateway
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: asw
+  name: goodmusic
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: goodmusic.asw.io
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: api-gateway
+                port:
+                  number: 8080
+---
+# SERVICE DISCOVERY
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  namespace: asw
+  name: service-discovery-reader
+rules:
+  - apiGroups: ["", "extensions", "apps"]
+    resources: ["pods", "services", "endpoints"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  namespace: asw
+  name: service-discovery-reader-binding
+subjects:
+  - kind: Group
+    name: system:serviceaccounts
+    apiGroup: ""
+roleRef:
+  kind: ClusterRole
+  name: service-discovery-reader
+  apiGroup: ""

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo 'Starting Kafka' 
-
+cd "$(dirname "$0")"
 kubectl create namespace kafka
 
 helm install -f kafka-values.yaml -f kafka-provisioning.yaml kafka oci://registry-1.docker.io/bitnamicharts/kafka -n kafka
