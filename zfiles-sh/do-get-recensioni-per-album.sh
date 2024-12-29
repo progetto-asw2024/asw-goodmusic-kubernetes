@@ -12,5 +12,5 @@ fi
 ALBUM=$(echo $1 | sed -e "s/ /%20/g") 
 
 echo "# tutte le recensioni per l'album $1" 
-echo $(curl -s localhost:8080/recensioni/cercarecensioni/album/$ALBUM)
+echo $(curl -s ${SERVICE_INGRESS_HOST}/recensioni/cercarecensioni/album/$ALBUM --connect-to ${SERVICE_INGRESS_HOST}:80:${SERVICE_HOST}:${INGRESS_PORT})
 echo 

@@ -13,6 +13,6 @@ fi
 RECENSORI=$(echo $1 | sed -e "s/ /%20/g" | sed -e "s/,/%2C/g") 
 
 echo "# tutte le recensioni per i recensori $1" 
-echo $(curl -s localhost:8080/recensioni/cercarecensioni/recensori/$RECENSORI)
+echo $(curl -s ${SERVICE_INGRESS_HOST}/recensioni/cercarecensioni/recensori/$RECENSORI --connect-to ${SERVICE_INGRESS_HOST}:80:${SERVICE_HOST}:${INGRESS_PORT})
 echo 
 

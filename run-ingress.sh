@@ -26,9 +26,9 @@ SERVICE_HOST=kube-node
 
 echo Accessing ${SERVICE} on ${SERVICE_INGRESS_HOST}:${INGRESS_PORT}
 
-N=${1:-10}
+N=${1:-1}
 for ((i=0; i<$N; i++)); do 
-	curl ${SERVICE_INGRESS_HOST} --connect-to ${SERVICE_INGRESS_HOST}:80:${SERVICE_HOST}:${INGRESS_PORT} 
+	curl ${SERVICE_INGRESS_HOST}/actuator/health --connect-to ${SERVICE_INGRESS_HOST}:80:${SERVICE_HOST}:${INGRESS_PORT} 
 	echo "" ; 
 	# oppure 
 #	curl ${SERVICE_HOST} --header "Host: ${SERVICE_INGRESS_HOST}" 

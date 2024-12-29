@@ -11,6 +11,6 @@ fi
 RECENSIONE=$1 
 
 echo "# trova la recensione $RECENSIONE" 
-echo $(curl -s localhost:8080/recensioni/recensioni/${RECENSIONE})
+echo $(curl -s ${SERVICE_INGRESS_HOST}/recensioni/recensioni/${RECENSIONE} --connect-to ${SERVICE_INGRESS_HOST}:80:${SERVICE_HOST}:${INGRESS_PORT}) 
 echo 
 

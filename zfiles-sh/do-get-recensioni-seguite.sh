@@ -12,5 +12,5 @@ fi
 UTENTE=$(echo $1 | sed -e "s/ /%20/g") 
 
 echo "# le recensioni seguite da $1" 
-echo $(curl -s localhost:8080/recensioni-seguite/recensioniseguite/$UTENTE)
+echo $(curl -s ${SERVICE_INGRESS_HOST}/recensioni-seguite/recensioniseguite/$UTENTE --connect-to ${SERVICE_INGRESS_HOST}:80:${SERVICE_HOST}:${INGRESS_PORT})
 echo 
