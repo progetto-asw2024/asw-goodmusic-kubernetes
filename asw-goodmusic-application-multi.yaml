@@ -225,21 +225,21 @@ spec:
   selector:
     app: goodmusic
     service: api-gateway
+  type: NodePort 
   ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 8080
+  - port: 8080
+    targetPort: 8080
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   namespace: asw
-  name: goodmusic
+  name: goodmusic-ing
 spec:
   ingressClassName: nginx
   rules:
     - host: goodmusic.asw.io
-    - http:
+      http:
         paths:
           - path: /
             pathType: Prefix
