@@ -3,22 +3,7 @@
 spring: 
   application: 
     name: recensioni-seguite
-  cloud:
-    consul:
-      host: consul
-      port: 8500
-      discovery: 
-        instanceId: ${spring.application.name}-${spring.cloud.client.hostname}-${random.value}
-        healthCheckPath: /actuator/health
-        healthCheckInterval: 10s
-        # configurazione per effettuare esprimenti, NON USARE UN PRODUZIONE 
-        # dopo quanto tempo consul deve smettere di restituire servizi che non rispondono all'health check? 
-        healthCheckCriticalTimeout: 45s
-        # consul deve restituire solo servizi che passano l'health check (default=false) 
-        queryPassing: true 
-    loadbalancer: 
-      ribbon.enabled: false 
-
+ 
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://recensioni-seguite-db:5432/recensioni-seguitedb
@@ -48,8 +33,8 @@ spring:
     show-sql: false
 
 server: 
-  port: ${PORT:${SERVER_PORT:0}}
-#  port: 8080
+  
+  port: 8080
   # per swagger, se dietro a un api gateway 
   forward-headers-strategy: framework
 asw:
