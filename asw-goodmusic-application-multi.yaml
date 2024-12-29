@@ -175,23 +175,95 @@ spec:
     - protocol: TCP
       port: 5432
       targetPort: 5432
-
+---
+# RECENSIONI-SEGUITE
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: asw
+  name: recensioni-seguite
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: goodmusic
+      service: recensioni-seguite
+  template:
+    metadata:
+      labels:
+        app: goodmusic
+        service: recensioni-seguite
+    spec:
+      containers:
+        - name: recensioni-seguite-container
+          image: stefanomoerelli02/asw-goodmusic-recensioni-seguite
+          ports:
+            - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
 metadata:
   namespace: asw
-  name: recensioni-db
+  name: recensioni-seguite
 spec:
   selector:
     app: goodmusic
-    service: recensioni-db
+    service: recensioni-seguite
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+
+# Database RECENSIONI-SEGUITE
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: asw
+  name: recensioni-seguite-db
+spec:
+  serviceName: recensioni-seguite-db
+  replicas: 1
+  selector:
+    matchLabels:
+      app: goodmusic
+      service: recensioni-seguite-db
+  template:
+    metadata:
+      labels:
+        app: goodmusic
+        service: recensioni-seguite-db
+    spec:
+      containers:
+        - name: recensioni-seguite-db-container
+          image: postgres:latest
+          env:
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: postgres
+            - name: POSTGRES_DB
+              value: recensioni-seguitedb
+          ports:
+            - containerPort: 5432
+  # Rimosso il volumeClaimTemplates
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: asw
+  name: recensioni-seguite-db
+spec:
+  selector:
+    app: goodmusic
+    service: recensioni-seguite-db
   type: NodePort
   ports:
     - protocol: TCP
       port: 5432
       targetPort: 5432
 ---
+
 # API GATEWAY
 apiVersion: apps/v1
 kind: Deployment
