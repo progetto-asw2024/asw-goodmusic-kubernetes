@@ -26,6 +26,18 @@ spec:
           image: stefanomoerelli02/asw-goodmusic-connessioni
           ports:
             - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            periodSeconds: 5
+            failureThreshold: 3
+            initialDelaySeconds: 600
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            periodSeconds: 10
 ---
 apiVersion: v1
 kind: Service
@@ -113,6 +125,18 @@ spec:
           image: stefanomoerelli02/asw-goodmusic-recensioni
           ports:
             - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            periodSeconds: 5
+            failureThreshold: 3
+            initialDelaySeconds: 600
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            periodSeconds: 10
 ---
 apiVersion: v1
 kind: Service
@@ -199,6 +223,18 @@ spec:
           image: stefanomoerelli02/asw-goodmusic-recensioni-seguite
           ports:
             - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            periodSeconds: 5
+            failureThreshold: 3
+            initialDelaySeconds: 600
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            periodSeconds: 10
 ---
 apiVersion: v1
 kind: Service
@@ -287,6 +323,18 @@ spec:
           image: stefanomoerelli02/asw-goodmusic-api-gateway
           ports:
             - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            periodSeconds: 5
+            failureThreshold: 3
+            initialDelaySeconds: 600
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            periodSeconds: 10         
 ---
 apiVersion: v1
 kind: Service
@@ -305,21 +353,24 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  namespace: asw
   name: goodmusic-ing
+  namespace: asw
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /  # Aggiunta per rimuovere il prefisso (opzionale)
 spec:
-  ingressClassName: nginx
+  ingressClassName: nginx  # Utilizzare il controller NGINX (modifica se usi un altro controller)
   rules:
-    - host: goodmusic.asw.io
+    - host: goodmusic.asw.io  # Nome del dominio per l'ingresso
       http:
         paths:
-          - path: /
+          - path: /  # Riguarda tutte le richieste
             pathType: Prefix
             backend:
               service:
-                name: api-gateway
+                name: api-gateway  # Servizio API Gateway
                 port:
-                  number: 8080
+                  number: 8080  # Porta del servizio API Gateway
+
 ---
 # SERVICE DISCOVERY
 apiVersion: rbac.authorization.k8s.io/v1
