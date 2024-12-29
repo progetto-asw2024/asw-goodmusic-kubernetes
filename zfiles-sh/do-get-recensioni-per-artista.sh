@@ -12,5 +12,5 @@ fi
 ARTISTA=$(echo $1 | sed -e "s/ /%20/g") 
 
 echo "# tutte le recensioni per l'artista $1" 
-echo $(curl -s localhost:8080/recensioni/cercarecensioni/artista/$ARTISTA)
+echo $(curl -s ${SERVICE_INGRESS_HOST}/recensioni/cercarecensioni/artista/$ARTISTA --connect-to ${SERVICE_INGRESS_HOST}:80:${SERVICE_HOST}:${INGRESS_PORT})
 echo 

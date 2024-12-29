@@ -12,5 +12,5 @@ fi
 GENERE=$(echo $1 | sed -e "s/ /%20/g") 
 
 echo "# tutte le recensioni per il genere $1" 
-echo $(curl -s localhost:8080/recensioni/cercarecensioni/genere/$GENERE)
+echo $(curl -s ${SERVICE_INGRESS_HOST}/recensioni/cercarecensioni/genere/$GENERE --connect-to ${SERVICE_INGRESS_HOST}:80:${SERVICE_HOST}:${INGRESS_PORT})
 echo 
