@@ -36,10 +36,10 @@ spec:
   selector:
     app: goodmusic
     service: connessioni
+  type: NodePort 
   ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 8080
+  - port: 8080
+    targetPort: 8080
 ---
 # Database CONNESSIONI
 apiVersion: apps/v1
@@ -123,10 +123,10 @@ spec:
   selector:
     app: goodmusic
     service: recensioni
+  type: NodePort 
   ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 8080
+  - port: 8080
+    targetPort: 8080
 ---
 # Database RECENSIONI
 apiVersion: apps/v1
@@ -209,10 +209,10 @@ spec:
   selector:
     app: goodmusic
     service: recensioni-seguite
+  type: NodePort 
   ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 8080
+  - port: 8080
+    targetPort: 8080
 ---
 
 # Database RECENSIONI-SEGUITE
