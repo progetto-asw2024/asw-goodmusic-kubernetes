@@ -2,6 +2,8 @@
 
 echo Halting GOODMUSIC   
 
+echo Stopping containers 
+
 docker stop consul 
 docker stop kafka
 docker stop $(docker ps -a | grep recensioni | awk '{print $1}')
@@ -12,7 +14,9 @@ docker stop recensioni-db
 docker stop recensioni-seguite-db
 docker stop apigateway
 
-docker rm consul 
+echo Removing containers
+
+docker rm consul
 docker rm kafka
 docker rm $(docker ps -a | grep recensioni | awk '{print $1}')
 docker rm $(docker ps -a | grep recensioni-seguite | awk '{print $1}')
