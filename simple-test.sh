@@ -2,7 +2,9 @@
 
 # Define the subfolder containing the scripts
 SUBFOLDER="zfiles-sh"
-
+export SERVICE_HOST=kube-node
+export INGRESS_PORT=80
+export SERVICE_INGRESS_HOST=goodmusic.asw.io
 # Step 1: Initialize Recensioni
 echo "Esecuzione di do-init-recensioni.sh..."
 ./$SUBFOLDER/do-init-recensioni.sh
@@ -39,5 +41,7 @@ echo "Esecuzione di run-curl-client.sh (terza verifica)..."
 
 echo "Controlla che le recensioni seguite da Alice, Bob e Carlo siano rispettivamente 7, 8 e 1."
 read -p "Premi Invio per terminare il processo..."
-
+unset SERVICE_HOST
+unset INGRESS_PORT
+unset SERVICE_INGRESS_HOST
 echo "Processo completato con successo."
