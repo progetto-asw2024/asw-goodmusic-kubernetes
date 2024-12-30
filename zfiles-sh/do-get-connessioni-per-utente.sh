@@ -12,6 +12,6 @@ fi
 UTENTE=$(echo $1 | sed -e "s/ /%20/g") 
 
 echo "# tutte le connessioni per l'utente $1" 
-echo $(curl -s ${SERVICE_INGRESS_HOST}/connessioni/connessioni/$UTENTE)
+echo $(curl -s ${SERVICE_INGRESS_HOST}/connessioni/connessioni/$UTENTE --connect-to ${SERVICE_INGRESS_HOST}:80:${SERVICE_HOST}:${INGRESS_PORT})
 echo 
 
