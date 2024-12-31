@@ -23,6 +23,8 @@ docker run -d --network=goodmusic-net --name kafka -v kafka_data:/bitnami \
   -e KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER \
   -e KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT \
   docker.io/bitnami/kafka:3.8
+  ./create-some-kafka-topics.sh
+
 
 docker run -d --network=goodmusic-net --name connessioni-db \
   -v connessioni_db_data:/var/lib/postgresql/data \
