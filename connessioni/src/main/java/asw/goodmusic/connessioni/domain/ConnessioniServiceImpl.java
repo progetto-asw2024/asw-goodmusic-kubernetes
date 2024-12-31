@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import asw.goodmusic.common.api.DomainEvent;
-import asw.goodmusic.connessioni.eventpublisher.ConnessioniEventKafkaPublisher;
 import asw.goodmusic.connessioni.api.event.ConnessioneCreatedEvent;
 import asw.goodmusic.connessioni.api.event.ConnessioneDeletedEvent;
 
@@ -17,7 +16,7 @@ public class ConnessioniServiceImpl implements ConnessioniService {
 	private ConnessioniRepository connessioniRepository;
 
 	@Autowired
-	private ConnessioniEventKafkaPublisher connesioniEventPublisher;
+	private ConnessioniEventPublisherPort connesioniEventPublisher;
 
 	/* Crea una nuova connessione, dati utente, seguito e ruolo. */ 
  	public Connessione createConnessione(String utente, String seguito, String ruolo) {
