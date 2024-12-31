@@ -6,7 +6,7 @@ spring:
 
   cloud:
     consul:
-      host: localhost
+      host: consul
       port: 8500
       discovery:
         instanceId: ${spring.application.name}-${spring.cloud.client.hostname}-${random.value}
@@ -22,7 +22,7 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5433/recensionidb
+    url: jdbc:postgresql://recensioni-db:5432/recensionidb
     username: postgres
     password: postgres
 
@@ -36,10 +36,16 @@ spring:
     open-in-view: false
     show-sql: false
 
+  kafka:
+    bootstrap-servers: kafka:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      batch-size: 0
+
 server:
-  port: ${PORT:${SERVER_PORT:0}}
   # Se necessario, puoi fissare una porta (es. 8080)
-  # port: 8080
+  port: 8080
   # Per Swagger, se dietro a un API Gateway
   forward-headers-strategy: framework
 
@@ -53,3 +59,12 @@ logging:
         SQL: INFO
     asw:
       recensioni: DEBUG
+
+# MESSAGING
+asw:
+  kafka:
+    producer:
+      name: Producer2
+    channel:
+      out: recensioni
+    # groupid: simple-producer

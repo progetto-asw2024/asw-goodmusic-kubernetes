@@ -4,10 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import asw.goodmusic.common.api.DomainEvent;
-import asw.goodmusic.recensioni.eventpublisher.RecensioniEventKafkaPublisher;
 import asw.goodmusic.recensioni.api.event.RecensioneCreatedEvent;
-import asw.goodmusic.recensioni.api.event.RecensioneDeletedEvent;
-
 import java.util.*; 
 
 @Service
@@ -17,7 +14,7 @@ public class RecensioniServiceImpl implements RecensioniService {
 	private RecensioniRepository recensioniRepository;
 
 	@Autowired
-	private RecensioniEventKafkaPublisher recensioniEventPublisher;
+	private RecensioniEventPublisherPort recensioniEventPublisher;
 
 	/* Crea una nuova recensione, a partire dai suoi dati. */ 
  	public Recensione createRecensione(String recensore, String album, String artista, String genere, String testo, String sunto) {

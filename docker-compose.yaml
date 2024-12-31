@@ -9,15 +9,17 @@ services:
     deploy:
       mode: replicated
       replicas: 2
-      #tags:
-       # - "${REGISTRY}/connessioni:${TAG}"
-        # - "${REGISTRY}/connessioni:latest"
+
   connessioni-db:
     image: docker.io/postgres:latest
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: connessionidb
+    volumes:
+      - "connessioni_db_data:/var/lib/postgresql/data"
+
+
   recensioni:
     build:
       context: ./recensioni
@@ -28,15 +30,16 @@ services:
     deploy:
       mode: replicated
       replicas: 2
-      # tags:
-      #   - "${REGISTRY}/recensioni:${TAG}"
-      #   - "${REGISTRY}/recensioni:latest"
+
   recensioni-db:
     image: docker.io/postgres:latest
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: recensionidb
+    volumes:
+      - "recensioni_db_data:/var/lib/postgresql/data"
+
 
   recensioni-seguite:
     build:
@@ -48,16 +51,14 @@ services:
     deploy:
       mode: replicated
       replicas: 2
-      # tags:
-      #   - "${REGISTRY}/recensioni-seguite:${TAG}"
-      #   - "${REGISTRY}/recensioni-seguite:latest"
+
   recensioni-seguite-db:
     image: docker.io/postgres:latest
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: recensioni-seguitedb
-  api-gateway: 
+  api-gateway:
     build:
       context: ./api-gateway
     ports:
@@ -68,6 +69,8 @@ services:
       mode: replicated
       replicas: 2
       endpoint_mode: vip
+
+
   consul:
     image: docker.io/hashicorp/consul
     ports:
@@ -88,9 +91,28 @@ services:
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
       - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
-      # tags:
-      #   - "${REGISTRY}/apigateway:${TAG}"
-      #   - "${REGISTRY}/apigateway:latest"
+    healthcheck:
+      test: [ "CMD", "kafka-topics.sh", "--bootstrap-server", "kafka:9092", "--list" ]
+      interval: 5s
+      timeout: 10s
+      retries: 4
+      start_period: 10s
+
+  init-kafka:
+    image: docker.io/bitnami/kafka:3.8
+    depends_on:
+      kafka:
+        condition: service_healthy
+    entrypoint: [ '/bin/sh', '-c' ]
+    command: |
+      "
+      # wait until broker is up
+      kafka-topics.sh --bootstrap-server kafka:9092 --list
+      echo 'Creating kafka topics...'
+      kafka-topics.sh --bootstrap-server kafka:9092 --create --if-not-exists --topic connessioni --replication-factor 1 --partitions 3
+      kafka-topics.sh --bootstrap-server kafka:9092 --create --if-not-exists --topic recensioni --replication-factor 1 --partitions 3
+      echo"
+
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
     depends_on:
@@ -100,6 +122,12 @@ services:
     environment:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+
+
 volumes:
   kafka_data:
+    driver: local
+  connessioni_db_data:
+    driver: local
+  recensioni_db_data:
     driver: local
