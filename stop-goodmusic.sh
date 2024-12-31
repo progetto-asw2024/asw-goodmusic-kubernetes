@@ -1,10 +1,10 @@
 #!/bin/bash
 
-echo Halting GOODMUSIC   
+echo Halting GOODMUSIC
 
-echo Stopping containers 
+echo Stopping containers
 
-docker stop consul 
+docker stop consul
 docker stop kafka
 docker stop $(docker ps -a | grep recensioni | awk '{print $1}')
 docker stop $(docker ps -a | grep recensioni-seguite | awk '{print $1}')
@@ -26,4 +26,4 @@ docker rm recensioni-db
 docker rm recensioni-seguite-db
 docker rm apigateway
 
-docker network rm goodmusic-net 
+docker network rm goodmusic-net

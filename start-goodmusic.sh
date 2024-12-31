@@ -2,7 +2,7 @@
 
 # Script per avviare l'applicazione GoodMusic
 
-echo Running GOODMUSIC 
+echo Running GOODMUSIC
 
 # Creo il network
 docker network create goodmusic-net
@@ -47,10 +47,10 @@ docker run -d --network=goodmusic-net --name recensioni-seguite-db \
   docker.io/postgres:latest
 
 docker run -d --network=goodmusic-net -p 8500:8500 --name=consul \
-  docker.io/hashicorp/consul 
+  docker.io/hashicorp/consul
 
-docker run -d --network=goodmusic-net --name=connessioni connessioni 
-docker run -d --network=goodmusic-net --name=recensioni recensioni 
-docker run -d --network=goodmusic-net --name=recensioni-seguite recensioni-seguite 
+docker run -d --network=goodmusic-net --name=connessioni connessioni
+docker run -d --network=goodmusic-net --name=recensioni recensioni
+docker run -d --network=goodmusic-net --name=recensioni-seguite recensioni-seguite
 
-docker run -d --network=goodmusic-net -p 8080:8080 --name=apigateway apigateway 
+docker run -d --network=goodmusic-net -p 8080:8080 --name=apigateway apigateway
