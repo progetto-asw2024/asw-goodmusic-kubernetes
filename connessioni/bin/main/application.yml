@@ -13,7 +13,7 @@ spring:
         healthCheckPath: /actuator/health
         healthCheckInterval: 10s
         # Configurazione per effettuare esperimenti, NON USARE IN PRODUZIONE
-        # Dopo quanto tempo Consul deve smettere di restituire servizi che non rispondono all'health check?
+        # Dopo quanto tempo Consul deve smettere di restituire servizi che non rispondono all'health check? 
         healthCheckCriticalTimeout: 45s
         # Consul deve restituire solo servizi che passano l'health check (default=false)
         queryPassing: true
@@ -44,9 +44,8 @@ spring:
       batch-size: 0
 
 server:
-  port: ${PORT:${SERVER_PORT:0}}
   # Se necessario, puoi fissare una porta (es. 8080)
-  # port: 8080
+  port: 8080
   # Per Swagger, se dietro a un API Gateway
   forward-headers-strategy: framework
 
