@@ -5,7 +5,7 @@ spring:
     name: recensioni-seguite
   cloud:
     consul:
-      host: localhost
+      host: consul
       port: 8500
       discovery: 
         instanceId: ${spring.application.name}-${spring.cloud.client.hostname}-${random.value}
@@ -21,11 +21,11 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5434/recensioni-seguitedb
+    url: jdbc:postgresql://recensioni-seguite-db:5432/recensioni-seguitedb
     username: postgres
     password: postgres
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: kafka:9092
     consumer:
       auto-offset: latest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -48,8 +48,8 @@ spring:
     show-sql: false
 
 server: 
-  port: ${PORT:${SERVER_PORT:0}}
-#  port: 8080
+  
+  port: 8080
   # per swagger, se dietro a un api gateway 
   forward-headers-strategy: framework
 asw:

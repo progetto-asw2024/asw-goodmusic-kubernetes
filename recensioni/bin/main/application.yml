@@ -6,14 +6,14 @@ spring:
 
   cloud:
     consul:
-      host: localhost
+      host: consul
       port: 8500
       discovery:
         instanceId: ${spring.application.name}-${spring.cloud.client.hostname}-${random.value}
         healthCheckPath: /actuator/health
         healthCheckInterval: 10s
         # Configurazione per effettuare esperimenti, NON USARE IN PRODUZIONE
-        # Dopo quanto tempo Consul deve smettere di restituire servizi che non rispondono all'health check? 
+        # Dopo quanto tempo Consul deve smettere di restituire servizi che non rispondono all'health check?
         healthCheckCriticalTimeout: 45s
         # Consul deve restituire solo servizi che passano l'health check (default=false)
         queryPassing: true
@@ -22,7 +22,7 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5433/recensionidb
+    url: jdbc:postgresql://recensioni-db:5432/recensionidb
     username: postgres
     password: postgres
 
@@ -37,7 +37,7 @@ spring:
     show-sql: false
 
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: kafka:9092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
