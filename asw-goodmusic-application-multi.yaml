@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: connessioni-container
-          image: stefanomoerelli02/asw-goodmusic-connessioni
+          image: stefanomoerelli02/asw-goodmusic-connessioni-kube
           ports:
             - containerPort: 8080
           livenessProbe:
@@ -122,7 +122,7 @@ spec:
     spec:
       containers:
         - name: recensioni-container
-          image: stefanomoerelli02/asw-goodmusic-recensioni
+          image: stefanomoerelli02/asw-goodmusic-recensioni-kube
           ports:
             - containerPort: 8080
           livenessProbe:
@@ -220,7 +220,7 @@ spec:
     spec:
       containers:
         - name: recensioni-seguite-container
-          image: stefanomoerelli02/asw-goodmusic-recensioni-seguite
+          image: stefanomoerelli02/asw-goodmusic-recensioni-seguite-kube
           ports:
             - containerPort: 8080
           livenessProbe:
@@ -320,7 +320,7 @@ spec:
     spec:
       containers:
         - name: api-gateway-container
-          image: stefanomoerelli02/asw-goodmusic-api-gateway
+          image: stefanomoerelli02/asw-goodmusic-api-gateway-kube
           ports:
             - containerPort: 8080
           livenessProbe:
