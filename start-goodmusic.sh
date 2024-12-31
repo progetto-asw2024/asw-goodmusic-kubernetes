@@ -2,6 +2,7 @@
 
 # Script per avviare l'applicazione GoodMusic
 
-echo Running GOODMUSIC 
+echo Running GOODMUSIC
 
 docker compose up
+

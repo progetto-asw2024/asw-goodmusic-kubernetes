@@ -1,5 +1,6 @@
 #!/bin/bash
 
-echo Halting GOODMUSIC   
+echo Halting GOODMUSIC
 
 docker compose down
+
