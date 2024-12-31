@@ -28,7 +28,7 @@ spring:
       batch-size: 0
 
 server:
-  
+
   # Se necessario, puoi fissare una porta (es. 8080)
   port: 8080
   # Per Swagger, se dietro a un API Gateway
