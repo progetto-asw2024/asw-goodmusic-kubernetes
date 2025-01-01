@@ -183,7 +183,17 @@ spec:
               value: recensionidb
           ports:
             - containerPort: 5432
-  # Rimosso il volumeClaimTemplates
+          volumeMounts:
+            - mountPath: "/var/lib/postgresql"
+              name: pvc-recensioni-db
+  volumeClaimTemplates:
+    - metadata:
+        name: pvc-recensioni-db
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi
 ---
 apiVersion: v1
 kind: Service
