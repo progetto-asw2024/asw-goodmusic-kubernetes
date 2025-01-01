@@ -54,6 +54,19 @@ spec:
     targetPort: 8080
 ---
 # Database CONNESSIONI
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: connessioni-db-pv
+spec:
+  capacity:
+    storage: 100Mi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /data/connessioni-db  
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -84,6 +97,17 @@ spec:
               value: connessionidb
           ports:
             - containerPort: 5432
+          volumeMounts:
+            - mountPath: "/var/lib/postgresql"
+              name: pvc-connessioni-db
+  volumeClaimTemplates:
+    - metadata:
+        name: pvc-connessioni-db
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 100Mi
   # Rimosso il volumeClaimTemplates
 ---
 apiVersion: v1
@@ -152,7 +176,21 @@ spec:
   - port: 8080
     targetPort: 8080
 ---
+
 # Database RECENSIONI
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: recensioni-db-pv
+spec:
+  capacity:
+    storage: 100Mi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /data/recensioni-db  
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -193,7 +231,7 @@ spec:
         accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
-            storage: 1Gi
+            storage: 100Mi
 ---
 apiVersion: v1
 kind: Service
@@ -292,6 +330,7 @@ spec:
               value: recensioni-seguitedb
           ports:
             - containerPort: 5432
+
   # Rimosso il volumeClaimTemplates
 ---
 apiVersion: v1
