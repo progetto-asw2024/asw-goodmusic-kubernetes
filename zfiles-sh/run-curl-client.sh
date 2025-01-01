@@ -1,6 +1,9 @@
 #!/bin/bash
 
 # esegue un insieme di interrogazioni di esempio 
+SERVICE_HOST=kube-node
+INGRESS_PORT=80
+SERVICE_INGRESS_HOST=goodmusic.asw.io
 
 echo "# tutte le recensioni"  
 echo $(curl -s ${SERVICE_INGRESS_HOST}/recensioni/recensioni --connect-to ${SERVICE_INGRESS_HOST}:80:${SERVICE_HOST}:${INGRESS_PORT}) | jq .
