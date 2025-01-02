@@ -1,1 +1,0 @@
-kubectl create -f asw-goodmusic-application-multi.yaml
